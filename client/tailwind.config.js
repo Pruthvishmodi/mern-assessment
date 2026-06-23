@@ -1,3 +1,5 @@
+import plugin from "tailwindcss";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -10,5 +12,18 @@ export default {
       },
     },
   },
-  plugins: [require("tailwind-textform-fill")],
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          "text-fill": (value) => ({
+            "-webkit-text-fill-color": value,
+          }),
+        },
+        {
+          values: theme("colors"),
+        },
+      );
+    }),
+  ],
 };
